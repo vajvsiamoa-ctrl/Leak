@@ -5,11 +5,11 @@
 
   <!-- Website Verification -->
   <meta name="1b141c62af203cace78d00f882636a7f905ebad5"
-        content="1b141c62af203cace78d00f882636a7f905ebad5" />
+        content="1b141c62af203cace78d00f882636a7f905ebad5">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#ffffff">
-  <meta name="description" content="Watch videos online.">
+  <meta name="description" content="Watch videos online">
 
   <title>Video Player</title>
 
@@ -211,9 +211,7 @@
     <div class="banner" id="bannerOne">
       <div>
         <div class="banner-label">ADVERTISEMENT</div>
-        <div id="bannerOneContent">
-          Banner advertisement
-        </div>
+        <div id="bannerOneContent">Banner advertisement</div>
       </div>
     </div>
 
@@ -226,9 +224,7 @@
     <div class="banner" id="bannerTwo">
       <div>
         <div class="banner-label">ADVERTISEMENT</div>
-        <div id="bannerTwoContent">
-          Banner advertisement
-        </div>
+        <div id="bannerTwoContent">Banner advertisement</div>
       </div>
     </div>
 
@@ -240,39 +236,28 @@
 
   <script>
     /*
-    ==========================================
-    WEBSITE SETTINGS
-    ==========================================
-    */
+     * WEBSITE CONFIGURATION
+     */
 
     const CONFIG = {
-
-      // Main video URL supplied by the website owner.
       MAIN_VIDEO_URL: "https://files.catbox.moe/kc1e1o.mp4",
 
       VIDEO_TITLE: "Watch Video",
 
-      // Pre-roll is disabled until a real ad is configured.
+      // Enable only after configuring a real compatible ad.
       ENABLE_PREROLL_AD: false,
 
-      // Add a valid MP4 ad URL here for basic testing.
-      // This is not a replacement for a VAST integration.
+      // Optional MP4 ad URL for testing.
+      // A real ad network may require a VAST integration.
       AD_VIDEO_URL: "",
 
       ENABLE_BANNER_ONE: true,
       ENABLE_BANNER_TWO: true,
 
-      // Add your advertising provider's approved banner code.
+      // Add your approved banner snippets here.
       BANNER_ONE_HTML: "",
       BANNER_TWO_HTML: ""
     };
-
-
-    /*
-    ==========================================
-    ELEMENTS
-    ==========================================
-    */
 
     const mainVideo = document.getElementById("mainVideo");
     const adVideo = document.getElementById("adVideo");
@@ -284,24 +269,18 @@
     let adStarted = false;
     let mainVideoStarted = false;
 
-
     /*
-    ==========================================
-    INITIALIZE VIDEO
-    ==========================================
-    */
+     * INITIALIZE VIDEO
+     */
 
     document.getElementById("videoTitle").textContent =
       CONFIG.VIDEO_TITLE;
 
     mainVideo.src = CONFIG.MAIN_VIDEO_URL;
 
-
     /*
-    ==========================================
-    BANNER SETTINGS
-    ==========================================
-    */
+     * BANNER CONFIGURATION
+     */
 
     function setupBanner(elementId, enabled, html) {
       const element = document.getElementById(elementId);
@@ -330,16 +309,14 @@
       CONFIG.BANNER_TWO_HTML
     );
 
-
     /*
-    ==========================================
-    VIDEO PLAYBACK
-    ==========================================
-    */
+     * PLAY MAIN VIDEO
+     */
 
     function playMainVideo() {
       adInProgress = false;
       adFinished = true;
+
       adPanel.classList.remove("active");
 
       adVideo.pause();
@@ -353,12 +330,9 @@
       });
     }
 
-
     /*
-    ==========================================
-    BASIC PRE-ROLL VIDEO AD
-    ==========================================
-    */
+     * BASIC PRE-ROLL AD
+     */
 
     function startAd() {
       if (
@@ -383,7 +357,7 @@
       adVideo.load();
 
       adVideo.play().catch(() => {
-        // Allow the main video to play if the ad fails.
+        // Continue to the main video if the ad fails.
         playMainVideo();
       });
     }
@@ -411,20 +385,16 @@
       }
     });
 
-
     /*
-    ==========================================
-    UPLOAD BUTTON
-    ==========================================
-    */
+     * UPLOAD BUTTON
+     */
 
     document.getElementById("uploadButton").addEventListener("click", () => {
       alert(
-        "Uploading requires a separate video hosting service. " +
-        "This GitHub Pages website does not support server-side uploads."
+        "Video uploads require a separate hosting service. " +
+        "GitHub Pages does not support server-side uploads."
       );
     });
-
   </script>
 
 </body>
