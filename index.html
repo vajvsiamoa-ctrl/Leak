@@ -1,149 +1,33 @@
 
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Video Gallery</title>
-
 <style>
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  background: #0b0b0f;
-  color: white;
-  font-family: Arial, sans-serif;
-}
-
-header {
-  padding: 20px 12px;
-  text-align: center;
-  background: #14141b;
-  border-bottom: 1px solid #292932;
-}
-
-header h1 {
-  margin: 0;
-  font-size: 25px;
-}
-
-main {
-  max-width: 1200px;
-  margin: auto;
-  padding: 15px;
-}
-
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-}
-
-.video-card {
-  display: block;
-  padding: 0;
-  border: 1px solid #292932;
-  border-radius: 8px;
-  overflow: hidden;
-  background: #17171f;
-  cursor: pointer;
-  aspect-ratio: 16 / 9;
-}
-
-.video-card img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.video-card:hover {
-  border-color: #7777ff;
-}
-
-.pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 24px 0;
-}
-
-.pagination button {
-  border: 1px solid #393945;
-  border-radius: 6px;
-  background: #1b1b25;
-  color: white;
-  padding: 10px 14px;
-  cursor: pointer;
-}
-
-.pagination button.active {
-  background: #5757e8;
-  border-color: #5757e8;
-}
-
-.pagination button:disabled {
-  opacity: .35;
-  cursor: default;
-}
-
-.modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 10;
-  background: rgba(0,0,0,.94);
-  align-items: center;
-  justify-content: center;
-  padding: 12px;
-}
-
-.modal.open {
-  display: flex;
-}
-
-.modal-content {
-  width: 100%;
-  max-width: 1000px;
-}
-
-.close {
-  display: block;
-  margin: 0 0 10px auto;
-  border: 0;
-  background: #292932;
-  color: white;
-  border-radius: 6px;
-  padding: 10px 15px;
-  font-size: 18px;
-  cursor: pointer;
-}
-
-.player {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  border: 0;
-  background: black;
-}
-
-@media (min-width: 700px) {
-  .gallery {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 16px;
-  }
-}
+*{box-sizing:border-box}
+body{margin:0;background:#0b0b0f;color:#fff;font-family:Arial,sans-serif}
+header{text-align:center;padding:20px;background:#15151d;border-bottom:1px solid #292932}
+h1{margin:0;font-size:25px}
+main{max-width:1200px;margin:auto;padding:15px}
+.gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.video-card{padding:0;border:1px solid #30303b;border-radius:8px;overflow:hidden;background:#17171f;cursor:pointer;aspect-ratio:16/9}
+.video-card img{display:block;width:100%;height:100%;object-fit:cover}
+.pagination{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:8px;margin:24px 0}
+.pagination button,.close{border:1px solid #393945;border-radius:6px;background:#1b1b25;color:#fff;padding:10px 14px;cursor:pointer}
+.pagination button.active{background:#5757e8}
+.pagination button:disabled{opacity:.35;cursor:default}
+.modal{display:none;position:fixed;inset:0;z-index:10;background:rgba(0,0,0,.95);align-items:center;justify-content:center;padding:12px}
+.modal.open{display:flex}
+.modal-content{width:100%;max-width:1000px}
+.close{display:block;margin:0 0 10px auto}
+.player{display:block;width:100%;aspect-ratio:16/9;border:0;background:#000}
+@media(min-width:700px){.gallery{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}}
 </style>
 </head>
-
 <body>
-<header>
-  <h1>Video Gallery</h1>
-</header>
+<header><h1>Video Gallery</h1></header>
 
 <main>
   <div class="gallery" id="gallery"></div>
@@ -152,56 +36,52 @@ main {
 
 <div class="modal" id="modal">
   <div class="modal-content">
-    <button class="close" id="closeButton">✕ إغلاق الفيديو</button>
-    <iframe
-      class="player"
-      id="player"
-      src=""
+    <button class="close" id="closeButton">Close ✕</button>
+    <iframe class="player" id="player" src="about:blank"
+      title="Video player"
       allow="autoplay; fullscreen; picture-in-picture"
-      allowfullscreen
-      loading="lazy">
-    </iframe>
+      allowfullscreen></iframe>
   </div>
 </div>
 
 <script>
 const videoIds = [
-  "NhbzG2NqQ6TPG",
-  "b1m9pXFLktF4v",
-  "N5jC5ThnWNSPP",
-  "QthIyWY33ljjV",
-  "PpuwxN2wlFujS",
-  "KcbFAZ1fCGz6B",
-  "zX6u9nxpl1ZRI",
-  "mKlfkTTv7LOkm",
-  "6FWercj1TZKlv",
-  "ag2LfewnVMOFV",
-  "7Jg2YegPiIws0",
-  "6RRxgYtxENR2O",
-  "MVNeK5A4VqY8t",
-  "gy5M5AsZQEsNf",
-  "5fiEkVCis1XWX",
-  "p7P01plDoaWo3",
-  "6VV5DuodKw01G",
-  "qC3I6bMG9btlf",
-  "1BcvDW6mTRPT7",
-  "k5ffAkLMVutJP",
-  "CpSbOCyjBso0c",
-  "NWKnKvJDeFpC0",
-  "f2HfACB09RoDk",
-  "vZso9pE3FGah8",
-  "zarOXxW8rxfgj",
-  "668JaTRjVVzGW",
-  "NvbI4uQkRh4Gx",
-  "nDzqUkTB3qZo8",
-  "XtHG5CXrGMGra",
-  "G5tIVsatAmKyF",
-  "Nl7G8vcAU0l4A",
-  "gVOhulthj41tZ",
-  "uuBVNoHVdU7W4",
-  "MgYTenCiPdcQ1",
-  "cDRPrwfbCj5ud",
-  "acNZZrjK2YIbd"
+"NhbzG2NqQ6TPG",
+"b1m9pXFLktF4v",
+"N5jC5ThnWNSPP",
+"QthIyWY33ljjV",
+"PpuwxN2wlFujS",
+"KcbFAZ1fCGz6B",
+"zX6u9nxpl1ZRI",
+"mKlfkTTv7LOkm",
+"6FWercj1TZKlv",
+"ag2LfewnVMOFV",
+"7Jg2YegPiIws0",
+"6RRxgYtxENR2O",
+"MVNeK5A4VqY8t",
+"gy5M5AsZQEsNf",
+"5fiEkVCis1XWX",
+"p7P01plDoaWo3",
+"6VV5DuodKw01G",
+"qC3I6bMG9btlf",
+"1BcvDW6mTRPT7",
+"k5ffAkLMVutJP",
+"CpSbOCyjBso0c",
+"NWKnKvJDeFpC0",
+"f2HfACB09RoDk",
+"vZso9pE3FGah8",
+"zarOXxW8rxfgj",
+"668JaTRjVVzGW",
+"NvbI4uQkRh4Gx",
+"nDzqUkTB3qZo8",
+"XtHG5CXrGMGra",
+"G5tIVsatAmKyF",
+"Nl7G8vcAU0l4A",
+"gVOhulthj41tZ",
+"uuBVNoHVdU7W4",
+"MgYTenCiPdcQ1",
+"cDRPrwfbCj5ud",
+"acNZZrjK2YIbd"
 ];
 
 const perPage = 10;
@@ -213,15 +93,14 @@ const modal = document.getElementById("modal");
 const player = document.getElementById("player");
 
 function openVideo(id) {
-  player.src = "https://vidara.to/e/" +
-    encodeURIComponent(id);
+  player.src = "https://vidara.to/e/" + encodeURIComponent(id);
   modal.classList.add("open");
   document.body.style.overflow = "hidden";
 }
 
 function closeVideo() {
   modal.classList.remove("open");
-  player.src = "";
+  player.src = "about:blank";
   document.body.style.overflow = "";
 }
 
@@ -246,10 +125,9 @@ function renderGallery() {
   pageVideos.forEach(function(id, index) {
     const number = start + index + 1;
     const card = document.createElement("button");
-
     card.className = "video-card";
     card.type = "button";
-    card.setAttribute("aria-label", "تشغيل الفيديو " + number);
+    card.setAttribute("aria-label", "Play video " + number);
 
     const img = document.createElement("img");
     img.src = "https://placehold.co/640x360/17171f/ffffff?text=VIDEO+" + number;
@@ -260,19 +138,18 @@ function renderGallery() {
     card.addEventListener("click", function() {
       openVideo(id);
     });
-
     gallery.appendChild(card);
   });
 
   const totalPages = Math.ceil(videoIds.length / perPage);
 
   const previous = document.createElement("button");
-  previous.textContent = "السابق";
+  previous.textContent = "Previous";
   previous.disabled = currentPage === 1;
   previous.addEventListener("click", function() {
     currentPage--;
     renderGallery();
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({top:0,behavior:"smooth"});
   });
   pagination.appendChild(previous);
 
@@ -282,25 +159,24 @@ function renderGallery() {
 
     if (page === currentPage) {
       button.classList.add("active");
-      button.setAttribute("aria-current", "page");
+      button.setAttribute("aria-current","page");
     }
 
     button.addEventListener("click", function() {
       currentPage = page;
       renderGallery();
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      window.scrollTo({top:0,behavior:"smooth"});
     });
-
     pagination.appendChild(button);
   }
 
   const next = document.createElement("button");
-  next.textContent = "التالي";
+  next.textContent = "Next";
   next.disabled = currentPage === totalPages;
   next.addEventListener("click", function() {
     currentPage++;
     renderGallery();
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({top:0,behavior:"smooth"});
   });
   pagination.appendChild(next);
 }
