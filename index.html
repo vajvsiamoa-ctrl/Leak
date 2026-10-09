@@ -1,189 +1,469 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Leak 🔥</title>
-<style>
-*{box-sizing:border-box}
-body{margin:0;background:#0b0b0f;color:#fff;font-family:Arial,sans-serif}
-header{text-align:center;padding:20px;background:#15151d;border-bottom:1px solid #292932}
-h1{margin:0;font-size:28px}
-main{max-width:1400px;margin:auto;padding:8px}
-.gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-.video-card{border:1px solid #30303b;border-radius:10px;overflow:hidden;background:#17171f}
-.video-box{position:relative;width:100%;aspect-ratio:16/9;background:#000}
-.play-btn{position:absolute;inset:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;border:0;background:linear-gradient(135deg,#232336,#12121a);color:#fff;cursor:pointer;font-size:14px}
-.play-btn:hover{background:linear-gradient(135deg,#2c2c45,#16161f)}
-.play-icon{width:clamp(44px,12vw,80px);height:clamp(44px,12vw,80px);border-radius:50%;background:#5757e8;display:flex;align-items:center;justify-content:center}
-.play-icon::after{content:"";margin-left:6px;border-style:solid;border-width:11px 0 11px 18px;border-color:transparent transparent transparent #fff}
-.player{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
-.title{padding:8px 10px;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pagination{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:8px;margin:24px 0}
-.pagination button{border:1px solid #393945;border-radius:6px;background:#1b1b25;color:#fff;padding:10px 14px;cursor:pointer}
-.pagination button.active{background:#5757e8}
-.pagination button:disabled{opacity:.35;cursor:default}
-.dots{opacity:.5;padding:0 4px}
-@media(min-width:700px){.gallery{gap:16px}main{padding:15px}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Video Player</title>
+  <meta name="description" content="Watch videos online.">
+  <meta name="theme-color" content="#ffffff">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #fff;
+      color: #222;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .header {
+      height: 65px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .logo {
+      font-size: 23px;
+      font-weight: 700;
+      color: #222;
+      text-decoration: none;
+    }
+
+    .upload-button {
+      padding: 10px 17px;
+      border: 0;
+      border-radius: 5px;
+      background: #222;
+      color: white;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .container {
+      width: min(100% - 28px, 900px);
+      margin: 28px auto;
+    }
+
+    .video-box {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #111;
+      overflow: hidden;
+      border-radius: 5px;
+    }
+
+    video {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: #111;
+    }
+
+    .ad-panel {
+      display: none;
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      background: #111;
+      color: white;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 18px;
+      text-align: center;
+    }
+
+    .ad-panel.active {
+      display: flex;
+    }
+
+    .ad-label {
+      font-size: 12px;
+      color: #ccc;
+      margin-bottom: 12px;
+    }
+
+    .ad-panel video {
+      width: 100%;
+      max-height: 75%;
+    }
+
+    .ad-message {
+      line-height: 1.6;
+      color: #ddd;
+    }
+
+    .skip-button {
+      margin-top: 14px;
+      padding: 10px 16px;
+      background: #fff;
+      border: 0;
+      border-radius: 4px;
+      color: #111;
+      cursor: pointer;
+    }
+
+    .banner {
+      min-height: 90px;
+      margin: 18px 0;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f7f7f7;
+      border: 1px solid #eee;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .banner-label {
+      color: #999;
+      font-size: 11px;
+      margin-bottom: 5px;
+    }
+
+    .description {
+      padding: 12px 0;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .footer {
+      margin-top: 40px;
+      padding: 20px;
+      text-align: center;
+      color: #777;
+      border-top: 1px solid #eee;
+      font-size: 12px;
+    }
+
+    @media (max-width: 600px) {
+      .header {
+        height: 58px;
+        padding: 0 12px;
+      }
+
+      .logo {
+        font-size: 19px;
+      }
+
+      .container {
+        width: calc(100% - 20px);
+        margin-top: 18px;
+      }
+
+      .banner {
+        min-height: 70px;
+      }
+    }
+  </style>
 </head>
+
 <body>
-<header><h1>Leak 🔥</h1></header>
 
-<main>
-  <div class="gallery" id="gallery"></div>
-  <nav class="pagination" id="pagination" aria-label="Pages"></nav>
-</main>
+  <header class="header">
+    <a class="logo" href="./">Video</a>
+    <button class="upload-button" id="uploadButton" type="button">
+      Upload
+    </button>
+  </header>
 
-<script>
-/* To add a video: add a new line below.
-   { id: "VIDEO_ID", title: "Optional title" }
-   (VIDEO_ID is the last part of https://vidara.to/e/XXXX) */
-const VIDEOS = [
-  { id: "NhbzG2NqQ6TPG" },
-  { id: "b1m9pXFLktF4v" },
-  { id: "N5jC5ThnWNSPP" },
-  { id: "QthIyWY33ljjV" },
-  { id: "PpuwxN2wlFujS" },
-  { id: "KcbFAZ1fCGz6B" },
-  { id: "zX6u9nxpl1ZRI" },
-  { id: "mKlfkTTv7LOkm" },
-  { id: "6FWercj1TZKlv" },
-  { id: "ag2LfewnVMOFV" },
-  { id: "7Jg2YegPiIws0" },
-  { id: "6RRxgYtxENR2O" },
-  { id: "MVNeK5A4VqY8t" },
-  { id: "gy5M5AsZQEsNf" },
-  { id: "5fiEkVCis1XWX" },
-  { id: "p7P01plDoaWo3" },
-  { id: "6VV5DuodKw01G" },
-  { id: "qC3I6bMG9btlf" },
-  { id: "1BcvDW6mTRPT7" },
-  { id: "k5ffAkLMVutJP" },
-  { id: "CpSbOCyjBso0c" },
-  { id: "NWKnKvJDeFpC0" },
-  { id: "f2HfACB09RoDk" },
-  { id: "vZso9pE3FGah8" },
-  { id: "zarOXxW8rxfgj" },
-  { id: "668JaTRjVVzGW" },
-  { id: "NvbI4uQkRh4Gx" },
-  { id: "nDzqUkTB3qZo8" },
-  { id: "XtHG5CXrGMGra" },
-  { id: "G5tIVsatAmKyF" },
-  { id: "Nl7G8vcAU0l4A" },
-  { id: "gVOhulthj41tZ" },
-  { id: "uuBVNoHVdU7W4" },
-  { id: "MgYTenCiPdcQ1" },
-  { id: "cDRPrwfbCj5ud" },
-  { id: "acNZZrjK2YIbd" }
-];
+  <main class="container">
 
-const perPage = 6; // videos per page
-const videos = VIDEOS.filter(function(v, i, arr) {
-  return v.id && arr.findIndex(function(x){ return x.id === v.id; }) === i;
-});
-const totalPages = Math.max(1, Math.ceil(videos.length / perPage));
-let currentPage = 1;
+    <!-- Main video player -->
+    <div class="video-box">
 
-const gallery = document.getElementById("gallery");
-const pagination = document.getElementById("pagination");
+      <video
+        id="mainVideo"
+        controls
+        playsinline
+        preload="metadata"
+        controlsList="nodownload"
+      >
+        Your browser does not support HTML5 video.
+      </video>
 
-function goTo(page) {
-  currentPage = Math.min(Math.max(page, 1), totalPages);
-  renderGallery();
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}
+      <!-- Advertisement overlay -->
+      <div class="ad-panel" id="adPanel">
+        <div class="ad-label">ADVERTISEMENT</div>
 
-function makeButton(label, onClick, disabled) {
-  const b = document.createElement("button");
-  b.type = "button";
-  b.textContent = label;
-  b.disabled = !!disabled;
-  b.addEventListener("click", onClick);
-  return b;
-}
+        <video
+          id="adVideo"
+          playsinline
+          preload="none"
+        ></video>
 
-function pageList() {
-  const pages = [];
-  for (let p = 1; p <= totalPages; p++) {
-    if (p === 1 || p === totalPages || Math.abs(p - currentPage) <= 1) pages.push(p);
-    else if (pages[pages.length - 1] !== "…") pages.push("…");
-  }
-  return pages;
-}
+        <div class="ad-message" id="adMessage">
+          Advertisement
+        </div>
 
-function playVideo(box, video, label) {
-  const frame = document.createElement("iframe");
-  frame.className = "player";
-  frame.src = "https://vidara.to/e/" + encodeURIComponent(video.id);
-  frame.title = label;
-  frame.allow = "autoplay; fullscreen; picture-in-picture";
-  frame.referrerPolicy = "no-referrer-when-downgrade";
-  frame.setAttribute("allowfullscreen", "");
-  box.innerHTML = "";
-  box.appendChild(frame);
-}
+        <button
+          class="skip-button"
+          id="skipAdButton"
+          type="button"
+          hidden
+        >
+          Skip Ad
+        </button>
+      </div>
 
-function renderGallery() {
-  gallery.innerHTML = "";
-  pagination.innerHTML = "";
+    </div>
 
-  const start = (currentPage - 1) * perPage;
-  videos.slice(start, start + perPage).forEach(function(video, index) {
-    const number = start + index + 1;
-    const label = video.title || ("Video " + number);
+    <!-- Banner Ad 1 -->
+    <div class="banner" id="bannerOne">
+      <div>
+        <div class="banner-label">ADVERTISEMENT</div>
+        <div id="bannerOneContent">
+          Banner advertisement
+        </div>
+      </div>
+    </div>
 
-    const card = document.createElement("div");
-    card.className = "video-card";
+    <section class="description">
+      <strong id="videoTitle">Watch Video</strong>
+      <p>Enjoy watching videos online.</p>
+    </section>
 
-    const box = document.createElement("div");
-    box.className = "video-box";
+    <!-- Banner Ad 2 -->
+    <div class="banner" id="bannerTwo">
+      <div>
+        <div class="banner-label">ADVERTISEMENT</div>
+        <div id="bannerTwoContent">
+          Banner advertisement
+        </div>
+      </div>
+    </div>
 
-    const btn = document.createElement("button");
-    btn.type = "button";
-    btn.className = "play-btn";
-    btn.setAttribute("aria-label", "Play " + label);
+  </main>
 
-    const icon = document.createElement("span");
-    icon.className = "play-icon";
-    btn.appendChild(icon);
+  <footer class="footer">
+    Video Website
+  </footer>
 
-    btn.addEventListener("click", function() { playVideo(box, video, label); });
-    box.appendChild(btn);
+  <script>
+    /*
+    ============================================
+    WEBSITE CONFIGURATION
+    ============================================
+    */
 
-    const title = document.createElement("div");
-    title.className = "title";
-    title.textContent = label;
+    const CONFIG = {
 
-    card.appendChild(box);
-    card.appendChild(title);
-    gallery.appendChild(card);
-  });
+      // Replace this with a working MP4 URL.
+      MAIN_VIDEO_URL: "YOUR_MAIN_VIDEO_MP4_URL",
 
-  if (totalPages === 1) return;
+      // Video title.
+      VIDEO_TITLE: "Watch Video",
 
-  pagination.appendChild(makeButton("Previous", function(){ goTo(currentPage - 1); }, currentPage === 1));
+      // Set true after adding a valid video ad URL.
+      ENABLE_PREROLL_AD: false,
 
-  pageList().forEach(function(p) {
-    if (p === "…") {
-      const d = document.createElement("span");
-      d.className = "dots";
-      d.textContent = "…";
-      pagination.appendChild(d);
-      return;
+      // Direct MP4 video ad URL for basic testing only.
+      // For real network ads, use a compatible VAST player.
+      AD_VIDEO_URL: "",
+
+      // Enable or disable banner areas.
+      ENABLE_BANNER_ONE: true,
+      ENABLE_BANNER_TWO: true,
+
+      // Paste provider-approved banner HTML snippets here.
+      // Only use code from your actual advertising dashboard.
+      BANNER_ONE_HTML: "",
+      BANNER_TWO_HTML: ""
+    };
+
+
+    /*
+    ============================================
+    ELEMENTS
+    ============================================
+    */
+
+    const mainVideo = document.getElementById("mainVideo");
+    const adVideo = document.getElementById("adVideo");
+    const adPanel = document.getElementById("adPanel");
+    const adMessage = document.getElementById("adMessage");
+    const skipAdButton = document.getElementById("skipAdButton");
+
+    let adFinished = false;
+    let adInProgress = false;
+    let adStarted = false;
+    let mainVideoStarted = false;
+
+
+    /*
+    ============================================
+    INITIALIZE VIDEO
+    ============================================
+    */
+
+    document.getElementById("videoTitle").textContent =
+      CONFIG.VIDEO_TITLE;
+
+    if (
+      CONFIG.MAIN_VIDEO_URL &&
+      CONFIG.MAIN_VIDEO_URL !== "YOUR_MAIN_VIDEO_MP4_URL"
+    ) {
+      mainVideo.src = CONFIG.MAIN_VIDEO_URL;
+    } else {
+      mainVideo.removeAttribute("src");
+      mainVideo.load();
     }
-    const b = makeButton(p, function(){ goTo(p); });
-    if (p === currentPage) {
-      b.classList.add("active");
-      b.setAttribute("aria-current", "page");
+
+
+    /*
+    ============================================
+    BANNER CONFIGURATION
+    ============================================
+    */
+
+    function setupBanner(elementId, enabled, html) {
+      const element = document.getElementById(elementId);
+
+      if (!enabled) {
+        element.style.display = "none";
+        return;
+      }
+
+      const content = element.querySelector("div:last-child");
+
+      if (html.trim()) {
+        // Provider-approved HTML supplied by the site owner.
+        content.innerHTML = html;
+      }
     }
-    pagination.appendChild(b);
-  });
 
-  pagination.appendChild(makeButton("Next", function(){ goTo(currentPage + 1); }, currentPage === totalPages));
-}
+    setupBanner(
+      "bannerOne",
+      CONFIG.ENABLE_BANNER_ONE,
+      CONFIG.BANNER_ONE_HTML
+    );
 
-renderGallery();
-</script>
+    setupBanner(
+      "bannerTwo",
+      CONFIG.ENABLE_BANNER_TWO,
+      CONFIG.BANNER_TWO_HTML
+    );
+
+
+    /*
+    ============================================
+    PRE-ROLL ADVERTISEMENT
+    ============================================
+    */
+
+    function hasMainVideo() {
+      return Boolean(
+        CONFIG.MAIN_VIDEO_URL &&
+        CONFIG.MAIN_VIDEO_URL !== "YOUR_MAIN_VIDEO_MP4_URL"
+      );
+    }
+
+    function playMainVideo() {
+      if (!hasMainVideo()) {
+        adMessage.textContent =
+          "Please configure a valid main video MP4 URL.";
+        adPanel.classList.add("active");
+        return;
+      }
+
+      adInProgress = false;
+      adFinished = true;
+      adPanel.classList.remove("active");
+
+      adVideo.pause();
+      adVideo.removeAttribute("src");
+      adVideo.load();
+
+      mainVideoStarted = true;
+      mainVideo.play().catch(() => {
+        // The visitor can press the main play button manually.
+      });
+    }
+
+    function startAd() {
+      if (
+        !CONFIG.ENABLE_PREROLL_AD ||
+        !CONFIG.AD_VIDEO_URL ||
+        adStarted
+      ) {
+        playMainVideo();
+        return;
+      }
+
+      adStarted = true;
+      adInProgress = true;
+      adFinished = false;
+
+      mainVideo.pause();
+      adPanel.classList.add("active");
+
+      adMessage.textContent = "Advertisement playing...";
+      skipAdButton.hidden = true;
+
+      adVideo.src = CONFIG.AD_VIDEO_URL;
+      adVideo.load();
+
+      adVideo.play().then(() => {
+        // This is a basic MP4 ad, not a VAST ad integration.
+      }).catch(() => {
+        // Do not trap the visitor if the ad fails.
+        playMainVideo();
+      });
+    }
+
+    mainVideo.addEventListener("play", () => {
+      if (
+        !mainVideoStarted &&
+        !adFinished &&
+        CONFIG.ENABLE_PREROLL_AD
+      ) {
+        mainVideo.pause();
+        startAd();
+      }
+    });
+
+    adVideo.addEventListener("ended", () => {
+      if (adInProgress) {
+        playMainVideo();
+      }
+    });
+
+    adVideo.addEventListener("error", () => {
+      if (adInProgress) {
+        playMainVideo();
+      }
+    });
+
+    skipAdButton.addEventListener("click", () => {
+      // Skip is intentionally not enabled by default.
+      // Only implement it according to the ad provider's rules.
+    });
+
+
+    /*
+    ============================================
+    UPLOAD BUTTON
+    ============================================
+    */
+
+    document.getElementById("uploadButton").addEventListener("click", () => {
+      alert(
+        "This static website does not have a server-side upload system. " +
+        "Configure an approved hosting service to upload videos."
+      );
+    });
+
+  </script>
+
 </body>
 </html>
