@@ -3,28 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Video Gallery</title>
+<title>Leak 🔥</title>
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#0b0b0f;color:#fff;font-family:Arial,sans-serif}
 header{text-align:center;padding:20px;background:#15151d;border-bottom:1px solid #292932}
-h1{margin:0;font-size:25px}
-main{max-width:1400px;margin:auto;padding:10px}
+h1{margin:0;font-size:28px}
+main{max-width:1400px;margin:auto;padding:8px}
 .gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-.video-card{border:1px solid #30303b;border-radius:8px;overflow:hidden;background:#17171f}
-.player{display:block;width:100%;aspect-ratio:16/9;border:0;background:#000}
+.video-card{border:1px solid #30303b;border-radius:10px;overflow:hidden;background:#17171f}
+.video-box{position:relative;width:100%;aspect-ratio:16/9;background:#000}
+.play-btn{position:absolute;inset:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;border:0;background:linear-gradient(135deg,#232336,#12121a);color:#fff;cursor:pointer;font-size:14px}
+.play-btn:hover{background:linear-gradient(135deg,#2c2c45,#16161f)}
+.play-icon{width:clamp(44px,12vw,80px);height:clamp(44px,12vw,80px);border-radius:50%;background:#5757e8;display:flex;align-items:center;justify-content:center}
+.play-icon::after{content:"";margin-left:6px;border-style:solid;border-width:11px 0 11px 18px;border-color:transparent transparent transparent #fff}
+.player{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
 .title{padding:8px 10px;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .pagination{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:8px;margin:24px 0}
 .pagination button{border:1px solid #393945;border-radius:6px;background:#1b1b25;color:#fff;padding:10px 14px;cursor:pointer}
 .pagination button.active{background:#5757e8}
 .pagination button:disabled{opacity:.35;cursor:default}
 .dots{opacity:.5;padding:0 4px}
-@media(min-width:700px){.gallery{gap:16px}}
-@media(min-width:1000px){.gallery{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(min-width:700px){.gallery{gap:16px}main{padding:15px}}
 </style>
 </head>
 <body>
-<header><h1>Video Gallery</h1></header>
+<header><h1>Leak 🔥</h1></header>
 
 <main>
   <div class="gallery" id="gallery"></div>
@@ -108,6 +112,18 @@ function pageList() {
   return pages;
 }
 
+function playVideo(box, video, label) {
+  const frame = document.createElement("iframe");
+  frame.className = "player";
+  frame.src = "https://vidara.to/e/" + encodeURIComponent(video.id);
+  frame.title = label;
+  frame.allow = "autoplay; fullscreen; picture-in-picture";
+  frame.referrerPolicy = "no-referrer-when-downgrade";
+  frame.setAttribute("allowfullscreen", "");
+  box.innerHTML = "";
+  box.appendChild(frame);
+}
+
 function renderGallery() {
   gallery.innerHTML = "";
   pagination.innerHTML = "";
@@ -120,20 +136,26 @@ function renderGallery() {
     const card = document.createElement("div");
     card.className = "video-card";
 
-    const frame = document.createElement("iframe");
-    frame.className = "player";
-    frame.src = "https://vidara.to/e/" + encodeURIComponent(video.id);
-    frame.title = label;
-    frame.loading = "lazy";
-    frame.allow = "autoplay; fullscreen; picture-in-picture";
-    frame.referrerPolicy = "no-referrer-when-downgrade";
-    frame.setAttribute("allowfullscreen", "");
+    const box = document.createElement("div");
+    box.className = "video-box";
+
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "play-btn";
+    btn.setAttribute("aria-label", "Play " + label);
+
+    const icon = document.createElement("span");
+    icon.className = "play-icon";
+    btn.appendChild(icon);
+
+    btn.addEventListener("click", function() { playVideo(box, video, label); });
+    box.appendChild(btn);
 
     const title = document.createElement("div");
     title.className = "title";
     title.textContent = label;
 
-    card.appendChild(frame);
+    card.appendChild(box);
     card.appendChild(title);
     gallery.appendChild(card);
   });
