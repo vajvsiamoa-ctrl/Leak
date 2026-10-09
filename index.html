@@ -2,11 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+
+  <!-- Website Verification -->
+  <meta name="1b141c62af203cace78d00f882636a7f905ebad5"
+        content="1b141c62af203cace78d00f882636a7f905ebad5" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Watch videos online.">
 
   <title>Video Player</title>
-  <meta name="description" content="Watch videos online.">
-  <meta name="theme-color" content="#ffffff">
 
   <style>
     * {
@@ -102,16 +107,6 @@
       color: #ddd;
     }
 
-    .skip-button {
-      margin-top: 14px;
-      padding: 10px 16px;
-      background: #fff;
-      border: 0;
-      border-radius: 4px;
-      color: #111;
-      cursor: pointer;
-    }
-
     .banner {
       min-height: 90px;
       margin: 18px 0;
@@ -172,6 +167,7 @@
 
   <header class="header">
     <a class="logo" href="./">Video</a>
+
     <button class="upload-button" id="uploadButton" type="button">
       Upload
     </button>
@@ -179,7 +175,7 @@
 
   <main class="container">
 
-    <!-- Main video player -->
+    <!-- Main Video Player -->
     <div class="video-box">
 
       <video
@@ -192,8 +188,9 @@
         Your browser does not support HTML5 video.
       </video>
 
-      <!-- Advertisement overlay -->
+      <!-- Pre-roll Advertisement -->
       <div class="ad-panel" id="adPanel">
+
         <div class="ad-label">ADVERTISEMENT</div>
 
         <video
@@ -206,19 +203,11 @@
           Advertisement
         </div>
 
-        <button
-          class="skip-button"
-          id="skipAdButton"
-          type="button"
-          hidden
-        >
-          Skip Ad
-        </button>
       </div>
 
     </div>
 
-    <!-- Banner Ad 1 -->
+    <!-- Banner Advertisement 1 -->
     <div class="banner" id="bannerOne">
       <div>
         <div class="banner-label">ADVERTISEMENT</div>
@@ -233,7 +222,7 @@
       <p>Enjoy watching videos online.</p>
     </section>
 
-    <!-- Banner Ad 2 -->
+    <!-- Banner Advertisement 2 -->
     <div class="banner" id="bannerTwo">
       <div>
         <div class="banner-label">ADVERTISEMENT</div>
@@ -251,48 +240,44 @@
 
   <script>
     /*
-    ============================================
-    WEBSITE CONFIGURATION
-    ============================================
+    ==========================================
+    WEBSITE SETTINGS
+    ==========================================
     */
 
     const CONFIG = {
 
-      // Replace this with a working MP4 URL.
-      MAIN_VIDEO_URL: "YOUR_MAIN_VIDEO_MP4_URL",
+      // Main video URL supplied by the website owner.
+      MAIN_VIDEO_URL: "https://files.catbox.moe/kc1e1o.mp4",
 
-      // Video title.
       VIDEO_TITLE: "Watch Video",
 
-      // Set true after adding a valid video ad URL.
+      // Pre-roll is disabled until a real ad is configured.
       ENABLE_PREROLL_AD: false,
 
-      // Direct MP4 video ad URL for basic testing only.
-      // For real network ads, use a compatible VAST player.
+      // Add a valid MP4 ad URL here for basic testing.
+      // This is not a replacement for a VAST integration.
       AD_VIDEO_URL: "",
 
-      // Enable or disable banner areas.
       ENABLE_BANNER_ONE: true,
       ENABLE_BANNER_TWO: true,
 
-      // Paste provider-approved banner HTML snippets here.
-      // Only use code from your actual advertising dashboard.
+      // Add your advertising provider's approved banner code.
       BANNER_ONE_HTML: "",
       BANNER_TWO_HTML: ""
     };
 
 
     /*
-    ============================================
+    ==========================================
     ELEMENTS
-    ============================================
+    ==========================================
     */
 
     const mainVideo = document.getElementById("mainVideo");
     const adVideo = document.getElementById("adVideo");
     const adPanel = document.getElementById("adPanel");
     const adMessage = document.getElementById("adMessage");
-    const skipAdButton = document.getElementById("skipAdButton");
 
     let adFinished = false;
     let adInProgress = false;
@@ -301,29 +286,21 @@
 
 
     /*
-    ============================================
+    ==========================================
     INITIALIZE VIDEO
-    ============================================
+    ==========================================
     */
 
     document.getElementById("videoTitle").textContent =
       CONFIG.VIDEO_TITLE;
 
-    if (
-      CONFIG.MAIN_VIDEO_URL &&
-      CONFIG.MAIN_VIDEO_URL !== "YOUR_MAIN_VIDEO_MP4_URL"
-    ) {
-      mainVideo.src = CONFIG.MAIN_VIDEO_URL;
-    } else {
-      mainVideo.removeAttribute("src");
-      mainVideo.load();
-    }
+    mainVideo.src = CONFIG.MAIN_VIDEO_URL;
 
 
     /*
-    ============================================
-    BANNER CONFIGURATION
-    ============================================
+    ==========================================
+    BANNER SETTINGS
+    ==========================================
     */
 
     function setupBanner(elementId, enabled, html) {
@@ -337,7 +314,6 @@
       const content = element.querySelector("div:last-child");
 
       if (html.trim()) {
-        // Provider-approved HTML supplied by the site owner.
         content.innerHTML = html;
       }
     }
@@ -356,26 +332,12 @@
 
 
     /*
-    ============================================
-    PRE-ROLL ADVERTISEMENT
-    ============================================
+    ==========================================
+    VIDEO PLAYBACK
+    ==========================================
     */
 
-    function hasMainVideo() {
-      return Boolean(
-        CONFIG.MAIN_VIDEO_URL &&
-        CONFIG.MAIN_VIDEO_URL !== "YOUR_MAIN_VIDEO_MP4_URL"
-      );
-    }
-
     function playMainVideo() {
-      if (!hasMainVideo()) {
-        adMessage.textContent =
-          "Please configure a valid main video MP4 URL.";
-        adPanel.classList.add("active");
-        return;
-      }
-
       adInProgress = false;
       adFinished = true;
       adPanel.classList.remove("active");
@@ -385,10 +347,18 @@
       adVideo.load();
 
       mainVideoStarted = true;
+
       mainVideo.play().catch(() => {
-        // The visitor can press the main play button manually.
+        // The visitor can press Play manually.
       });
     }
+
+
+    /*
+    ==========================================
+    BASIC PRE-ROLL VIDEO AD
+    ==========================================
+    */
 
     function startAd() {
       if (
@@ -408,15 +378,12 @@
       adPanel.classList.add("active");
 
       adMessage.textContent = "Advertisement playing...";
-      skipAdButton.hidden = true;
 
       adVideo.src = CONFIG.AD_VIDEO_URL;
       adVideo.load();
 
-      adVideo.play().then(() => {
-        // This is a basic MP4 ad, not a VAST ad integration.
-      }).catch(() => {
-        // Do not trap the visitor if the ad fails.
+      adVideo.play().catch(() => {
+        // Allow the main video to play if the ad fails.
         playMainVideo();
       });
     }
@@ -444,22 +411,17 @@
       }
     });
 
-    skipAdButton.addEventListener("click", () => {
-      // Skip is intentionally not enabled by default.
-      // Only implement it according to the ad provider's rules.
-    });
-
 
     /*
-    ============================================
+    ==========================================
     UPLOAD BUTTON
-    ============================================
+    ==========================================
     */
 
     document.getElementById("uploadButton").addEventListener("click", () => {
       alert(
-        "This static website does not have a server-side upload system. " +
-        "Configure an approved hosting service to upload videos."
+        "Uploading requires a separate video hosting service. " +
+        "This GitHub Pages website does not support server-side uploads."
       );
     });
 
