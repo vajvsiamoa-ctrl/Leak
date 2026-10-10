@@ -6,13 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#101827">
 
-  <!-- HilltopAds: كود التحقق من الموقع -->
+  <!-- HilltopAds Website Verification -->
   <meta name="1b141c62af203cace78d00f882636a7f905ebad5"
-        content="1b141c62af203cace78d00f882636a7f905ebad5" />
+        content="1b141c62af203cace78d00f882636a7f905ebad5">
 
   <title>مشاهدة الفيديو</title>
   <meta name="description"
-        content="شاهد الفيديو مباشرة من هاتفك أو الكمبيوتر.">
+        content="صفحة مشاهدة الفيديو عبر الإنترنت.">
 
   <style>
     * {
@@ -28,13 +28,13 @@
     }
 
     header {
-      padding: 18px 16px;
       background: #172235;
       border-bottom: 1px solid #29364b;
+      padding: 16px;
     }
 
     .container {
-      width: min(920px, 92%);
+      width: min(900px, 92%);
       margin: auto;
     }
 
@@ -44,26 +44,24 @@
     }
 
     main {
-      padding: 28px 0 50px;
+      padding: 25px 0 45px;
     }
 
     h1 {
-      font-size: clamp(24px, 5vw, 36px);
-      line-height: 1.5;
+      font-size: clamp(25px, 5vw, 35px);
       margin-bottom: 8px;
     }
 
-    .intro {
-      color: #bac7d9;
-      margin-top: 0;
+    .description {
+      color: #bdc9da;
     }
 
-    .video-box {
-      background: #05080e;
+    .video-container {
+      margin: 22px 0;
+      overflow: hidden;
       border: 1px solid #344158;
       border-radius: 14px;
-      overflow: hidden;
-      margin: 22px 0;
+      background: #05080e;
     }
 
     video {
@@ -73,28 +71,28 @@
       background: #05080e;
     }
 
-    .content-card {
+    .card {
+      margin: 22px 0;
       padding: 18px;
       border-radius: 12px;
       background: #172235;
-      margin: 22px 0;
     }
 
-    .ad-label {
-      font-size: 12px;
-      color: #aebbd0;
-      margin: 0 0 8px;
-    }
-
-    .ad-slot {
+    .ad-container {
+      margin: 24px 0;
       min-height: 120px;
-      margin: 22px 0;
       padding: 14px;
+      text-align: center;
       border: 1px solid #344158;
       border-radius: 12px;
       background: #141f30;
-      text-align: center;
       overflow: hidden;
+    }
+
+    .ad-label {
+      color: #aebbd0;
+      font-size: 12px;
+      margin: 0 0 8px;
     }
 
     .ad-placeholder {
@@ -114,18 +112,18 @@
 
 <body>
   <header>
-    <div class="container brand">مساحة الفيديو</div>
+    <div class="container brand">مشاهدة الفيديو</div>
   </header>
 
   <main class="container">
     <h1>شاهد الفيديو</h1>
 
-    <p class="intro">
+    <p class="description">
       يمكنك مشاهدة الفيديو مباشرة من هاتفك أو الكمبيوتر.
     </p>
 
-    <!-- مشغل الفيديو -->
-    <section class="video-box" aria-label="مشغل الفيديو">
+    <!-- Video Player -->
+    <section class="video-container">
       <video controls playsinline preload="metadata">
         <source
           src="https://files.catbox.moe/wi4z24.mp4"
@@ -133,45 +131,44 @@
 
         متصفحك لا يدعم تشغيل الفيديو.
         <a href="https://files.catbox.moe/wi4z24.mp4">
-          فتح الفيديو
+          افتح الفيديو مباشرة
         </a>
       </video>
     </section>
 
-    <section class="content-card">
+    <section class="card">
       <h2>عن الفيديو</h2>
       <p>
-        شاهد المحتوى واستمتع بالمشاهدة.
-        استخدم أدوات التحكم لتشغيل الفيديو أو إيقافه
-        وضبط مستوى الصوت.
+        شاهد الفيديو باستخدام مشغل الموقع،
+        وتحكم في التشغيل والصوت من خلال أدوات المشغل.
       </p>
     </section>
 
-    <!-- مساحة إعلانية من HilltopAds -->
-    <section class="ad-slot" aria-label="مساحة إعلانية">
+    <!-- HilltopAds Ad Placement -->
+    <section class="ad-container">
       <p class="ad-label">إعلان</p>
 
       <div class="ad-placeholder">
-        ستظهر الإعلانات بعد إضافة كود HilltopAds الرسمي.
+        مساحة إعلانية
       </div>
 
       <!--
-        ضع كود الإعلان الرسمي هنا بعد إنشائه
-        من حساب HilltopAds.
+        أضف كود الإعلان الرسمي من HilltopAds هنا.
+        كود التحقق الموجود في head لا يعرض الإعلانات.
       -->
     </section>
 
-    <section class="content-card">
-      <h2>المزيد من المحتوى</h2>
+    <section class="card">
+      <h2>معلومات إضافية</h2>
       <p>
-        أضف وصفًا مفيدًا أو معلومات مرتبطة بالفيديو
-        لتحسين تجربة الزوار.
+        يمكنك إضافة وصف أصلي ومفيد مرتبط بمحتوى الفيديو
+        لتحسين تجربة الزائر.
       </p>
     </section>
   </main>
 
   <footer>
-    © 2026 مساحة الفيديو
+    © 2026 - مشاهدة الفيديو
   </footer>
 </body>
 </html>
