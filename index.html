@@ -1,1 +1,174 @@
-تستثتيت
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101827">
+
+  <title>مشاهدة الفيديو</title>
+  <meta name="description"
+        content="شاهد الفيديو بجودة مناسبة للموبايل والكمبيوتر.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #101827;
+      color: #f8fafc;
+      font-family: Arial, sans-serif;
+      line-height: 1.8;
+    }
+
+    header {
+      padding: 18px 16px;
+      background: #172235;
+      border-bottom: 1px solid #29364b;
+    }
+
+    .container {
+      width: min(920px, 92%);
+      margin: auto;
+    }
+
+    .brand {
+      font-size: 21px;
+      font-weight: bold;
+    }
+
+    main {
+      padding: 28px 0 50px;
+    }
+
+    h1 {
+      font-size: clamp(24px, 5vw, 36px);
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+
+    .intro {
+      color: #bac7d9;
+      margin-top: 0;
+    }
+
+    .video-box {
+      background: #05080e;
+      border: 1px solid #344158;
+      border-radius: 14px;
+      overflow: hidden;
+      margin: 22px 0;
+    }
+
+    video {
+      display: block;
+      width: 100%;
+      max-height: 75vh;
+      background: #05080e;
+    }
+
+    .content-card {
+      padding: 18px;
+      border-radius: 12px;
+      background: #172235;
+      margin: 22px 0;
+    }
+
+    .ad-label {
+      font-size: 12px;
+      color: #aebbd0;
+      margin: 0 0 8px;
+    }
+
+    .ad-slot {
+      min-height: 120px;
+      margin: 22px 0;
+      padding: 14px;
+      border: 1px solid #344158;
+      border-radius: 12px;
+      background: #141f30;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .ad-placeholder {
+      color: #aebbd0;
+      font-size: 14px;
+    }
+
+    footer {
+      padding: 22px 12px;
+      text-align: center;
+      color: #aebbd0;
+      border-top: 1px solid #29364b;
+      font-size: 13px;
+    }
+
+    a {
+      color: #8fc5ff;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container brand">مساحة الفيديو</div>
+  </header>
+
+  <main class="container">
+    <h1>شاهد الفيديو</h1>
+    <p class="intro">
+      يمكنك مشاهدة الفيديو مباشرة من هاتفك أو الكمبيوتر.
+    </p>
+
+    <section class="video-box" aria-label="مشغل الفيديو">
+      <video controls playsinline preload="metadata">
+        <source
+          src="https://files.catbox.moe/wi4z24.mp4"
+          type="video/mp4">
+        متصفحك لا يدعم تشغيل الفيديو.
+        <a href="https://files.catbox.moe/wi4z24.mp4">
+          فتح الفيديو
+        </a>
+      </video>
+    </section>
+
+    <section class="content-card">
+      <h2>عن الفيديو</h2>
+      <p>
+        شاهد المحتوى واستمتع بالمشاهدة.
+        يمكنك استخدام أدوات التحكم لتشغيل الفيديو
+        أو إيقافه أو ضبط مستوى الصوت.
+      </p>
+    </section>
+
+    <!-- مساحة إعلانية: استبدل المحتوى بكود HilltopAds الرسمي -->
+    <section class="ad-slot" aria-label="إعلان">
+      <p class="ad-label">إعلان</p>
+
+      <div class="ad-placeholder">
+        ستظهر الوحدة الإعلانية هنا بعد إضافة كود الشبكة.
+      </div>
+
+      <!--
+        الصق كود الإعلان الرسمي الذي حصلت عليه
+        من حساب HilltopAds هنا.
+      -->
+    </section>
+
+    <section class="content-card">
+      <h2>المزيد من المحتوى</h2>
+      <p>
+        أضف هنا وصفًا مفيدًا للفيديو أو محتوى أصليًا
+        مرتبطًا به، حتى يحصل الزائر على تجربة متكاملة.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    © 2026 مساحة الفيديو
+  </footer>
+</body>
+</html>
