@@ -6,147 +6,43 @@
 
     <title>VideoHub</title>
 
+    <meta name="1b141c62af203cace78d00f882636a7f905ebad5" content="1b141c62af203cace78d00f882636a7f905ebad5" />
+
     <link rel="preconnect" href="https://luluvido.com">
     <link rel="dns-prefetch" href="https://luluvido.com">
     <link rel="preconnect" href="https://abacus.jasoncameron.dev">
 
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            background: #0b0b0d;
-            color: #fff;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: #0b0b0d; color: #fff; font-family: Arial, Helvetica, sans-serif; }
         header {
-            height: 64px;
-            background: #151518;
-            border-bottom: 1px solid #29292d;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 22px;
-            position: sticky;
-            top: 0;
-            z-index: 10;
+            height: 64px; background: #151518; border-bottom: 1px solid #29292d;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 22px; position: sticky; top: 0; z-index: 10;
         }
-
-        .logo {
-            font-size: 22px;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
-
-        .logo span {
-            color: #ff3b5c;
-        }
-
-        .stats {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            color: #aaa;
-            font-size: 13px;
-            white-space: nowrap;
-        }
-
-        main {
-            width: 100%;
-            max-width: 1050px;
-            margin: 0 auto;
-            padding: 24px 15px 50px;
-        }
-
-        .section-title {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 16px;
-        }
-
-        #videos {
-            display: flex;
-            flex-direction: column;
-            gap: 22px;
-        }
-
+        .logo { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
+        .logo span { color: #ff3b5c; }
+        .stats { display: flex; align-items: center; gap: 16px; color: #aaa; font-size: 13px; white-space: nowrap; }
+        main { width: 100%; max-width: 1050px; margin: 0 auto; padding: 24px 15px 50px; }
+        .section-title { font-size: 20px; font-weight: 600; margin-bottom: 16px; }
+        #videos { display: flex; flex-direction: column; gap: 22px; }
         .video-card {
-            background: #151518;
-            border: 1px solid #29292d;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 8px 30px rgba(0,0,0,.35);
+            background: #151518; border: 1px solid #29292d; border-radius: 12px;
+            overflow: hidden; box-shadow: 0 8px 30px rgba(0,0,0,.35);
         }
-
-        .video-wrapper {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            background: #000;
-        }
-
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: 0;
-            display: block;
-        }
-
-        .video-info {
-            padding: 15px 17px;
-        }
-
-        .video-meta {
-            color: #888;
-            font-size: 13px;
-        }
-
-        .pagination {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 30px;
-        }
-
+        .video-wrapper { width: 100%; aspect-ratio: 16 / 9; background: #000; }
+        iframe { width: 100%; height: 100%; border: 0; display: block; }
+        .video-info { padding: 15px 17px; }
+        .video-meta { color: #888; font-size: 13px; }
+        .pagination { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 30px; }
         .pagination button {
-            min-width: 40px;
-            height: 40px;
-            padding: 0 14px;
-            background: #151518;
-            color: #fff;
-            border: 1px solid #29292d;
-            border-radius: 8px;
-            font-size: 14px;
-            cursor: pointer;
+            min-width: 40px; height: 40px; padding: 0 14px; background: #151518; color: #fff;
+            border: 1px solid #29292d; border-radius: 8px; font-size: 14px; cursor: pointer;
         }
-
-        .pagination button:hover:not(:disabled) {
-            border-color: #ff3b5c;
-        }
-
-        .pagination button.active {
-            background: #ff3b5c;
-            border-color: #ff3b5c;
-            font-weight: 700;
-        }
-
-        .pagination button:disabled {
-            opacity: .35;
-            cursor: not-allowed;
-        }
-
-        footer {
-            text-align: center;
-            color: #666;
-            font-size: 13px;
-            padding: 25px 15px;
-            border-top: 1px solid #222;
-        }
-
+        .pagination button:hover:not(:disabled) { border-color: #ff3b5c; }
+        .pagination button.active { background: #ff3b5c; border-color: #ff3b5c; font-weight: 700; }
+        .pagination button:disabled { opacity: .35; cursor: not-allowed; }
+        footer { text-align: center; color: #666; font-size: 13px; padding: 25px 15px; border-top: 1px solid #222; }
         @media (max-width: 600px) {
             header { height: 56px; padding: 0 12px; }
             .logo { font-size: 19px; }
@@ -180,26 +76,20 @@
     <footer>© 2026 VideoHub</footer>
 
     <script>
-        /* ========= الإعدادات ========= */
-        const PER_PAGE = 8; // عدد الفيديوهات في الصفحة
+        const PER_PAGE = 8;
 
-        // اسم خاص بموقعك للعدادات (متغيروش وإلا الأرقام هتبدأ من الصفر)
         const NAMESPACE = "videohub-k7q2x9";
         const COUNTER_API = "https://abacus.jasoncameron.dev";
 
-        // مفاتيح العدادات الإجمالية
-        const KEY_SITE = "site";               // إجمالي الزيارات
-        const KEY_TOTAL_PLAYS = "total_plays"; // إجمالي مرات تشغيل كل الفيديوهات
+        const KEY_SITE = "site";
+        const KEY_TOTAL_PLAYS = "total_plays";
 
-        // دومين الفيديوهات
         const EMBED_BASE = "https://luluvido.com/e/";
 
-        // أضف أي فيديو جديد هنا: حط الـ ID بس (الجزء اللي بعد /e/)
         const videoIds = [
             "34zax65gr889"
         ];
 
-        /* ========= العدادات ========= */
         const stats = {};
         const fmt = n => Number(n || 0).toLocaleString("en-US");
 
@@ -236,7 +126,6 @@
             updateViewsUI();
         }
 
-        // زيارة الموقع: مرة واحدة لكل جلسة (الرفرش مبيزودهاش)
         async function trackVisit() {
             let first = false;
             try {
@@ -254,7 +143,6 @@
             updateViewsUI();
         }
 
-        // مشاهدة الفيديو: مرة واحدة لكل فيديو في الجلسة
         async function trackPlay(id) {
             const key = "played_" + id;
             try {
@@ -272,8 +160,6 @@
             updateViewsUI();
         }
 
-        /* ========= اكتشاف التشغيل =========
-           الضغط جوه الـ iframe = تشغيل (الصفحة بتفقد التركيز) */
         let lastFocusedId = null;
 
         function checkIframeFocus() {
@@ -293,7 +179,6 @@
         });
         setInterval(checkIframeFocus, 400);
 
-        /* ========= العرض ========= */
         const totalPages = Math.ceil(videoIds.length / PER_PAGE);
         const container = document.getElementById("videos");
         const pagination = document.getElementById("pagination");
@@ -330,7 +215,7 @@
 
         function renderPagination(page) {
             pagination.innerHTML = "";
-            if (totalPages <= 1) return; // مفيش داعي للأزرار لو صفحة واحدة
+            if (totalPages <= 1) return;
 
             function makeBtn(label, target, opts) {
                 opts = opts || {};
@@ -362,7 +247,6 @@
 
         window.addEventListener("popstate", function () { showPage(getPageFromUrl()); });
 
-        /* ========= التشغيل ========= */
         showPage(getPageFromUrl());
         trackVisit();
     </script>
